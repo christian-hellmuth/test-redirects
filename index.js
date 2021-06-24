@@ -22,7 +22,10 @@ const tests = require(testsFile);
 var errors = 0;
 
 const q = async.queue(function(task, callback) {
-  request(task.from, function(error, response, body) {
+  request({
+    url: task.from,
+    rejectUnauthorized: false
+  }, function(error, response, body) {
     if (error) {
       errorHandler(error);
       callback();
